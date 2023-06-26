@@ -13,6 +13,7 @@ public class GenreDto {
     @JsonIgnore
     private Long id;
     private String name;
+    @JsonIgnore
     @JsonBackReference
     private List<ProductDto> products;
 }
