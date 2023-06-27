@@ -1,11 +1,14 @@
 package com.digitalchief.controllers;
 
 import com.digitalchief.model.dto.AuthorDto;
+import com.digitalchief.model.dto.AuthorProductDto;
 import com.digitalchief.model.dto.ProductDeleteDto;
 import com.digitalchief.model.dto.ProductDto;
+import com.digitalchief.model.entity.Product;
 import com.digitalchief.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,6 +51,12 @@ public class ProductController {
                                             @RequestBody ProductDto productDto) {
         ProductDto product = productService.update(productDto, name);
         return new ResponseEntity<>(product, HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/setAuthor")
+    public ResponseEntity<String> setAuthor(@RequestBody AuthorProductDto authorProductDto) {
+        productService.insertIntoAuthorProduct(authorProductDto);
+        return new ResponseEntity<>(authorProductDto.getProductName() +  authorProductDto.getAuthorName(), HttpStatus.OK);
     }
 
 }

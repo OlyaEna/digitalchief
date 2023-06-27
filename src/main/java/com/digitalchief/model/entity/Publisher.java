@@ -1,9 +1,10 @@
 package com.digitalchief.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "publishes")
 public class Publisher {
@@ -12,4 +13,5 @@ public class Publisher {
     private Long id;
     private String name;
     private String address;
+
 }

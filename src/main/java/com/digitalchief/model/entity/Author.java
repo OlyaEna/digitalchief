@@ -1,14 +1,13 @@
 package com.digitalchief.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.sql.Date;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "authors")
 public class Author {
@@ -24,4 +23,5 @@ public class Author {
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private List<Product> products;
+
 }

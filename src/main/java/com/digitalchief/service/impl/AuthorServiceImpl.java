@@ -48,7 +48,7 @@ public class AuthorServiceImpl implements AuthorService {
         AuthorDto author = findByName(name);
         var products = productService.findAll();
         for (ProductDto product : products) {
-            if (product.getAuthors().contains(author)) {
+            if (product.getAuthors().contains(name)) {
                 throw new ConstraintException("Could not execute statement. " + "'" + name + "'" + "  cannot be deleted.");
             } else {
                 authorRepository.delete(authorMapper.toEntity(author));

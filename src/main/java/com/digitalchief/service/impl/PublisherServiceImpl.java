@@ -42,7 +42,7 @@ public class PublisherServiceImpl implements PublisherService {
         if (publisher == null) {
             return save(publisherDto);
         } else {
-            throw new NonUniqueException("Genre is incorrect or already exists. Try again.");
+            throw new NonUniqueException("Publisher is incorrect or already exists. Try again.");
         }
     }
 
@@ -56,7 +56,7 @@ public class PublisherServiceImpl implements PublisherService {
         PublisherDto publisher = findByName(name);
         List<ProductDto> products = productService.findAll();
         for (ProductDto product : products) {
-            if (product.getPublisher().equals(publisher)) {
+            if (product.getPublisher().equals(name)) {
                 throw new ConstraintException("Could not execute statement. " + "'" + name + "'" + "  cannot be deleted.");
             } else {
                 publisherRepository.delete(publisherMapper.toEntity(publisher));

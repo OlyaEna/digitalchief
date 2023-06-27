@@ -1,6 +1,7 @@
 package com.digitalchief.service;
 
 import com.digitalchief.model.dto.AuthorDto;
+import com.digitalchief.model.dto.AuthorProductDto;
 import com.digitalchief.model.dto.ProductDto;
 
 import java.util.List;
@@ -16,4 +17,5 @@ public interface ProductService {
     ProductDto findByName(String name);
 
     ProductDto update(ProductDto productDto, String name);
+    void insertIntoAuthorProduct(AuthorProductDto authorProductDto);
 }

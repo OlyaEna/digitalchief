@@ -46,7 +46,7 @@ public class GenreServiceImpl implements GenreService {
         GenreDto genre = findByName(name);
         List<ProductDto> products = productService.findAll();
         for (ProductDto product : products) {
-            if (product.getGenre().contains(genre)) {
+            if (product.getGenres().contains(name) ){
                 throw new ConstraintException("Could not execute statement. " + "'" + name + "'" + "  cannot be deleted.");
             } else {
                 genreRepository.delete(genreMapper.toEntity(genre));

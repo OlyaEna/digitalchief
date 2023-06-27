@@ -1,29 +1,17 @@
 package com.digitalchief.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
-import java.util.Objects;
-
+@EqualsAndHashCode
 @Getter
 @Setter
 public class PublisherDto {
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long id;
+    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
     private String name;
     private String address;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PublisherDto that = (PublisherDto) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(address, that.address);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, address);
-    }
 }
