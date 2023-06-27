@@ -13,4 +13,8 @@ public interface GenreService {
 
     void deleteGenreByName(String name);
 
+    GenreDto findByName(String name);
+
+    GenreDto updateGenre(GenreDto genreDto, String name);
+
 }

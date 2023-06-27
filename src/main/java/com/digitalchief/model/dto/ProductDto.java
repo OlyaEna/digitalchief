@@ -3,18 +3,14 @@ package com.digitalchief.model.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class ProductDto {
     @JsonIgnore
     private Long id;
@@ -28,5 +24,5 @@ public class ProductDto {
     @JsonManagedReference
     private List<GenreDto> genre;
     private PublisherDto publisher;
-    private SeriesDto series;
+
 }

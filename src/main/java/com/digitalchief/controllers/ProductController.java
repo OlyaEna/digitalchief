@@ -1,10 +1,12 @@
 package com.digitalchief.controllers;
 
+import com.digitalchief.model.dto.AuthorDto;
+import com.digitalchief.model.dto.ProductDeleteDto;
 import com.digitalchief.model.dto.ProductDto;
-import com.digitalchief.model.dto.SeriesDto;
 import com.digitalchief.service.ProductService;
-import com.digitalchief.service.SeriesService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,22 +16,38 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
     private final ProductService productService;
-    private final SeriesService seriesService;
 
     @GetMapping(path = "/all")
     public List<ProductDto> getAllProducts() {
         return productService.findAll();
     }
 
-
-
-    @GetMapping(path = "/{id}")
-    public ProductDto findProduct(@PathVariable Long id) {
-        return productService.findById(id);
+    @GetMapping(path = "/{name}")
+    public ResponseEntity<ProductDto> findByName(@PathVariable String name) {
+        ProductDto productDto = productService.findByName(name);
+        return new ResponseEntity<>(productDto, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/series/{id}")
-    public SeriesDto findSeries(@PathVariable Long id) {
-        return seriesService.findById(id);
+
+    @PostMapping(path = "/create")
+    public ResponseEntity<ProductDto> create(@RequestBody ProductDto productDto) {
+        ProductDto product = productService.create(productDto);
+        return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
+
+
+    @DeleteMapping(path = "/delete")
+    public ResponseEntity<String> delete(@RequestBody ProductDeleteDto productDto) {
+        productService.deleteByName(productDto.getTitle());
+        return new ResponseEntity<>("Product " + "\"" + productDto.getTitle() + "\"" + " has been deleted", HttpStatus.OK);
+
+    }
+
+    @PutMapping(path = "/update/{name}")
+    public ResponseEntity<ProductDto> update(@PathVariable("name") String name,
+                                            @RequestBody ProductDto productDto) {
+        ProductDto product = productService.update(productDto, name);
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
+
 }

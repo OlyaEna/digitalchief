@@ -1,13 +1,9 @@
 package com.digitalchief.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -30,7 +26,4 @@ public class Product {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="publisher_id")
     private Publisher publisher;
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name="series_id")
-    private Series series;
 }
