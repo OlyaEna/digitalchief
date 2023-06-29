@@ -57,8 +57,30 @@ Spring Boot. Требования:
 Склонируйте репозиторий: git clone https://github.com/OlyaEna/digitalchief.git </p>
 D MySQL Workbanch создайте Schema под названием "digital_chief". Сменить название можно в application.properties. </p>
 Запустить склонированный код необходимо через IDE,для работы с БД к проекту подкючены миграции. </p>
-
-
-
+<h2>Примеры запросов:</h2>
+- Автор
+![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/author_all.JPG)
+![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/author_create.JPG)
+![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/author_delete.JPG)
+![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/author_name.JPG)
+![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/author_update.JPG)
+- Жанр
+![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/genre_all.JPG)
+![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/genre_create.JPG)
+- Издатель
+![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/publisher_all.JPG)
+- Продукт
+![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/product_all.JPG)
+![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/product_create.JPG)
+![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/product_delete.JPG)
+![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/product_genre.JPG)
+![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/product_name.JPG)
+- Валидация и проверка на исключения
+![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/author_valid.JPG)
+![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/genre_valid.JPG)
+![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/genre_valid2.JPG)
+![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/genre_valid3.JPG)
+![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/product_valid.JPG)
+![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/publisher_valid.JPG)
 
 
