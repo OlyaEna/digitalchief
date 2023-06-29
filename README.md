@@ -58,7 +58,7 @@ Spring Boot. Требования:
 D MySQL Workbanch создайте Schema под названием "digital_chief". Сменить название можно в application.properties. </p>
 Запустить склонированный код необходимо через IDE,для работы с БД к проекту подкючены миграции. </p>
 <h2>Примеры запросов:</h2>
-- Автор
+- Автор </p>
 ![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/author_all.JPG) </p>
 ![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/author_create.JPG)
 ![ime](https://github.com/OlyaEna/digitalchief/blob/master/src/main/resources/templates/img/author_delete.JPG)
