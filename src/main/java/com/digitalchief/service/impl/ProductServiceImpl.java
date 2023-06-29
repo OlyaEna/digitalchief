@@ -3,12 +3,10 @@ package com.digitalchief.service.impl;
 import com.digitalchief.exceptions.NonUniqueException;
 import com.digitalchief.exceptions.NotFoundException;
 import com.digitalchief.model.dto.GenreDto;
-import com.digitalchief.model.dto.ProductDeleteDto;
 import com.digitalchief.model.dto.ProductDto;
 import com.digitalchief.model.entity.Product;
 import com.digitalchief.model.repository.ProductRepository;
 import com.digitalchief.model.repository.PublisherRepository;
-import com.digitalchief.service.GenreService;
 import com.digitalchief.service.ProductService;
 import com.digitalchief.service.mapper.GenreMapper;
 import com.digitalchief.service.mapper.ProductMapper;
@@ -24,7 +22,6 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
     private final PublisherRepository publisherRepository;
-    private final GenreService genreService;
     private final GenreMapper genreMapper;
 
     @Override
@@ -84,13 +81,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> findProductsByGenre(String name) {
-        GenreDto genreDto = genreService.findByName(name);
-        List<Product> product= productRepository.findProductsByGenre(genreMapper.toEntity(genreDto));
+    public List<ProductDto> findProductByGenre(GenreDto genre) {
+        List<Product> product= productRepository.findProductsByGenre(genreMapper.toEntity(genre));
         return productMapper.mapperToDtoList(product);
     }
-
-
 
 
 }

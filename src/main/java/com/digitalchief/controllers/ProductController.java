@@ -4,6 +4,7 @@ import com.digitalchief.model.dto.*;
 import com.digitalchief.service.AuthorService;
 import com.digitalchief.service.GenreService;
 import com.digitalchief.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class ProductController {
 
 
     @PostMapping(path = "/create")
-    public ResponseEntity<ProductDto> create(@RequestBody ProductDto productDto) {
+    public ResponseEntity<ProductDto> create(@Valid  @RequestBody ProductDto productDto) {
         ProductDto product = productService.create(productDto);
         return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
@@ -48,7 +49,7 @@ public class ProductController {
 
     @PutMapping(path = "/update/{name}")
     public ResponseEntity<ProductDto> update(@PathVariable("name") String name,
-                                             @RequestBody ProductDto productDto) {
+                                             @Valid @RequestBody ProductDto productDto) {
         ProductDto product = productService.update(productDto, name);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
@@ -57,7 +58,7 @@ public class ProductController {
     @PostMapping(path = "/set/author")
     public ResponseEntity<String> setAuthor(@RequestBody ParamProductDto paramProductDto) {
         authorService.insertIntoAuthorProduct(paramProductDto);
-        return new ResponseEntity<>(paramProductDto.getProductName() + paramProductDto.getParamName(), HttpStatus.OK);
+        return new ResponseEntity<>(paramProductDto.getProductName() + " "+ paramProductDto.getParamName(), HttpStatus.OK);
     }
 
     @PostMapping(path = "/set/genre")
@@ -68,7 +69,7 @@ public class ProductController {
 
     @GetMapping(path = "/find/{genre}")
     public ResponseEntity<List<ProductDto>> findByGenre(@PathVariable("genre") String genre) {
-        List<ProductDto> productDtoList = productService.findProductsByGenre(genre);
+        List<ProductDto> productDtoList = genreService.findProductsByGenre(genre);
         return new ResponseEntity<>(productDtoList, HttpStatus.OK);
     }
 

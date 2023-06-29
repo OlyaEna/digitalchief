@@ -1,6 +1,5 @@
 package com.digitalchief.service.mapper;
 
-import com.digitalchief.model.dto.ProductDeleteDto;
 import com.digitalchief.model.dto.ProductDto;
 import com.digitalchief.model.entity.Author;
 import com.digitalchief.model.entity.Genre;
@@ -24,16 +23,9 @@ public class ProductMapper {
         return Objects.isNull(entity) ? null : modelMapper.map(entity, ProductDto.class);
     }
 
-//    public Product toDeleteEntity(ProductDeleteDto dto) {
-//        return Objects.isNull(dto) ? null : modelMapper.map(dto, Product.class);
-//    }
 
     public Product toEntity(ProductDto dto) {
         return Objects.isNull(dto) ? null : modelMapper.map(dto, Product.class);
-    }
-
-    public ProductDeleteDto toDeleteDto(Product entity) {
-        return Objects.isNull(entity) ? null : modelMapper.map(entity, ProductDeleteDto.class);
     }
 
 

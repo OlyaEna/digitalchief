@@ -6,8 +6,6 @@ import com.digitalchief.exceptions.NotFoundException;
 import com.digitalchief.model.dto.AuthorDto;
 import com.digitalchief.model.dto.ParamProductDto;
 import com.digitalchief.model.dto.ProductDto;
-import com.digitalchief.model.entity.Author;
-import com.digitalchief.model.entity.Product;
 import com.digitalchief.model.repository.AuthorRepository;
 import com.digitalchief.service.AuthorService;
 import com.digitalchief.service.ProductService;

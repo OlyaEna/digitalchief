@@ -2,6 +2,7 @@ package com.digitalchief.controllers;
 
 import com.digitalchief.model.dto.GenreDto;
 import com.digitalchief.service.GenreService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,9 +29,9 @@ public class GenreController {
 
 
     @PostMapping(path = "/create")
-    public ResponseEntity<String> createGenre(@RequestBody GenreDto genreDto) {
+    public ResponseEntity<String> createGenre(@Valid  @RequestBody GenreDto genreDto) {
         GenreDto genre = genreService.createGenre(genreDto);
-        return new ResponseEntity<>(genre.getName(), HttpStatus.CREATED);
+        return new ResponseEntity<>("Genre " + "\"" + genre.getName() + "\"" + " has been created", HttpStatus.CREATED);
     }
 
 
@@ -49,7 +50,7 @@ public class GenreController {
 
     @PutMapping(path = "/update/{name}")
     public ResponseEntity<GenreDto> update(@PathVariable("name") String name,
-                                               @RequestBody GenreDto genreDto) {
+                                           @Valid @RequestBody GenreDto genreDto) {
         GenreDto genre = genreService.updateGenre(genreDto, name);
         return new ResponseEntity<>(genre, HttpStatus.OK);
     }

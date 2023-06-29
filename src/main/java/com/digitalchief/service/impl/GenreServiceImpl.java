@@ -6,6 +6,7 @@ import com.digitalchief.exceptions.NotFoundException;
 import com.digitalchief.model.dto.GenreDto;
 import com.digitalchief.model.dto.ParamProductDto;
 import com.digitalchief.model.dto.ProductDto;
+import com.digitalchief.model.entity.Product;
 import com.digitalchief.model.repository.GenreRepository;
 import com.digitalchief.service.GenreService;
 import com.digitalchief.service.ProductService;
@@ -22,6 +23,7 @@ public class GenreServiceImpl implements GenreService {
     private final GenreRepository genreRepository;
     private final GenreMapper genreMapper;
     private final ProductService productService;
+
 
     public GenreDto saveGenre(GenreDto genreDto) {
         return genreMapper.toDto(genreRepository.save(genreMapper.toEntity(genreDto)));
@@ -81,5 +83,11 @@ public class GenreServiceImpl implements GenreService {
             ProductDto product = productService.findByName(paramProductDto.getProductName());
             genreRepository.insertInto(author.getId(), product.getId());
         }
+    }
+
+    @Override
+    public List<ProductDto> findProductsByGenre(String name) {
+        GenreDto genreDto = findByName(name);
+        return productService.findProductByGenre(genreDto);
     }
 }

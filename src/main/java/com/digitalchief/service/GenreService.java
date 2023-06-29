@@ -2,6 +2,7 @@ package com.digitalchief.service;
 
 import com.digitalchief.model.dto.GenreDto;
 import com.digitalchief.model.dto.ParamProductDto;
+import com.digitalchief.model.dto.ProductDto;
 
 import java.util.List;
 
@@ -18,5 +19,7 @@ public interface GenreService {
 
     GenreDto updateGenre(GenreDto genreDto, String name);
     void insertIntoGenreProduct(ParamProductDto paramProductDto);
+    List<ProductDto> findProductsByGenre(String name);
+
 
 }

@@ -2,6 +2,7 @@ package com.digitalchief.controllers;
 
 import com.digitalchief.model.dto.AuthorDto;
 import com.digitalchief.service.AuthorService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class AuthorController {
 
 
     @PostMapping(path = "/create")
-    public ResponseEntity<AuthorDto> create(@RequestBody AuthorDto authorDto) {
+    public ResponseEntity<AuthorDto> create(@Valid @RequestBody AuthorDto authorDto) {
         AuthorDto author = authorService.create(authorDto);
         return new ResponseEntity<>(author, HttpStatus.CREATED);
     }
@@ -42,8 +43,8 @@ public class AuthorController {
     }
 
     @PutMapping(path = "/update/{name}")
-    public ResponseEntity<AuthorDto> update(@PathVariable("name") String name,
-                                               @RequestBody AuthorDto authorDto) {
+    public ResponseEntity<AuthorDto> update( @PathVariable("name") String name,
+                                             @Valid @RequestBody AuthorDto authorDto) {
         AuthorDto author = authorService.update(authorDto, name);
         return new ResponseEntity<>(author, HttpStatus.OK);
     }
