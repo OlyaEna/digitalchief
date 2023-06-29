@@ -24,7 +24,11 @@ public class ProductMapper {
         return Objects.isNull(entity) ? null : modelMapper.map(entity, ProductDto.class);
     }
 
-    public Product toDeleteEntity(ProductDeleteDto dto) {
+//    public Product toDeleteEntity(ProductDeleteDto dto) {
+//        return Objects.isNull(dto) ? null : modelMapper.map(dto, Product.class);
+//    }
+
+    public Product toEntity(ProductDto dto) {
         return Objects.isNull(dto) ? null : modelMapper.map(dto, Product.class);
     }
 

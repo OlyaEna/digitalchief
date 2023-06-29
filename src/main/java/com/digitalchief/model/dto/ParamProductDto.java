@@ -6,9 +6,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AuthorProductDto {
-    @JsonProperty("author_name")
-    private String authorName;
+public class ParamProductDto {
+    @JsonProperty("param_name")
+    private String paramName;
     @JsonProperty("product_name")
     private String productName;
 }

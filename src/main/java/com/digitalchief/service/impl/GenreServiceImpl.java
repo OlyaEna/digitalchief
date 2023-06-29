@@ -4,6 +4,7 @@ import com.digitalchief.exceptions.ConstraintException;
 import com.digitalchief.exceptions.NonUniqueException;
 import com.digitalchief.exceptions.NotFoundException;
 import com.digitalchief.model.dto.GenreDto;
+import com.digitalchief.model.dto.ParamProductDto;
 import com.digitalchief.model.dto.ProductDto;
 import com.digitalchief.model.repository.GenreRepository;
 import com.digitalchief.service.GenreService;
@@ -71,5 +72,14 @@ public class GenreServiceImpl implements GenreService {
             saveGenre(genre);
         }
         return genre;
+    }
+
+    @Override
+    public void insertIntoGenreProduct(ParamProductDto paramProductDto) {
+        if (paramProductDto != null) {
+            GenreDto author = findByName(paramProductDto.getParamName());
+            ProductDto product = productService.findByName(paramProductDto.getProductName());
+            genreRepository.insertInto(author.getId(), product.getId());
+        }
     }
 }

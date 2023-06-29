@@ -1,14 +1,11 @@
 package com.digitalchief.controllers;
 
-import com.digitalchief.model.dto.AuthorDto;
-import com.digitalchief.model.dto.AuthorProductDto;
-import com.digitalchief.model.dto.ProductDeleteDto;
-import com.digitalchief.model.dto.ProductDto;
-import com.digitalchief.model.entity.Product;
+import com.digitalchief.model.dto.*;
+import com.digitalchief.service.AuthorService;
+import com.digitalchief.service.GenreService;
 import com.digitalchief.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +16,8 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
     private final ProductService productService;
+    private final AuthorService authorService;
+    private final GenreService genreService;
 
     @GetMapping(path = "/all")
     public List<ProductDto> getAllProducts() {
@@ -40,23 +39,38 @@ public class ProductController {
 
 
     @DeleteMapping(path = "/delete")
-    public ResponseEntity<String> delete(@RequestBody ProductDeleteDto productDto) {
+    public ResponseEntity<String> delete(@RequestBody ProductDto productDto) {
         productService.deleteByName(productDto.getTitle());
         return new ResponseEntity<>("Product " + "\"" + productDto.getTitle() + "\"" + " has been deleted", HttpStatus.OK);
 
     }
 
+
     @PutMapping(path = "/update/{name}")
     public ResponseEntity<ProductDto> update(@PathVariable("name") String name,
-                                            @RequestBody ProductDto productDto) {
+                                             @RequestBody ProductDto productDto) {
         ProductDto product = productService.update(productDto, name);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-    @PostMapping(path = "/setAuthor")
-    public ResponseEntity<String> setAuthor(@RequestBody AuthorProductDto authorProductDto) {
-        productService.insertIntoAuthorProduct(authorProductDto);
-        return new ResponseEntity<>(authorProductDto.getProductName() +  authorProductDto.getAuthorName(), HttpStatus.OK);
+
+    @PostMapping(path = "/set/author")
+    public ResponseEntity<String> setAuthor(@RequestBody ParamProductDto paramProductDto) {
+        authorService.insertIntoAuthorProduct(paramProductDto);
+        return new ResponseEntity<>(paramProductDto.getProductName() + paramProductDto.getParamName(), HttpStatus.OK);
     }
+
+    @PostMapping(path = "/set/genre")
+    public ResponseEntity<String> setGenre(@RequestBody ParamProductDto paramProductDto) {
+        genreService.insertIntoGenreProduct(paramProductDto);
+        return new ResponseEntity<>(paramProductDto.getProductName() + paramProductDto.getParamName(), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/find/{genre}")
+    public ResponseEntity<List<ProductDto>> findByGenre(@PathVariable("genre") String genre) {
+        List<ProductDto> productDtoList = productService.findProductsByGenre(genre);
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
+    }
+
 
 }

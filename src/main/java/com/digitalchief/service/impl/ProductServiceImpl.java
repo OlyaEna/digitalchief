@@ -2,24 +2,20 @@ package com.digitalchief.service.impl;
 
 import com.digitalchief.exceptions.NonUniqueException;
 import com.digitalchief.exceptions.NotFoundException;
-import com.digitalchief.model.dto.AuthorProductDto;
+import com.digitalchief.model.dto.GenreDto;
 import com.digitalchief.model.dto.ProductDeleteDto;
 import com.digitalchief.model.dto.ProductDto;
-import com.digitalchief.model.entity.Author;
-import com.digitalchief.model.entity.Genre;
 import com.digitalchief.model.entity.Product;
-import com.digitalchief.model.entity.Publisher;
-import com.digitalchief.model.repository.AuthorRepository;
-import com.digitalchief.model.repository.GenreRepository;
 import com.digitalchief.model.repository.ProductRepository;
 import com.digitalchief.model.repository.PublisherRepository;
+import com.digitalchief.service.GenreService;
 import com.digitalchief.service.ProductService;
+import com.digitalchief.service.mapper.GenreMapper;
 import com.digitalchief.service.mapper.ProductMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,7 +23,9 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
-    private final AuthorRepository authorRepository;
+    private final PublisherRepository publisherRepository;
+    private final GenreService genreService;
+    private final GenreMapper genreMapper;
 
     @Override
     public List<ProductDto> findAll() {
@@ -54,13 +52,13 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public void deleteByName(String name) {
-        ProductDeleteDto product = productMapper.toDeleteDto(productRepository.findByTitle(name));
-        productRepository.delete(productMapper.toDeleteEntity(product));
+        ProductDto product = productMapper.toDto(productRepository.findByTitle(name));
+        productRepository.delete(productMapper.toEntity(product));
     }
+
 
     @Override
     public ProductDto findByName(String name) {
-//        ProductDto product = productMapper.toDto(productRepository.findByTitle(name));
         Product product = productRepository.findByTitle(name);
         if (product == null) {
             throw new NotFoundException("Product " + "'" + name + "'" + " does not exist. Try again.");
@@ -71,45 +69,28 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto update(ProductDto productDto, String name) {
-        ProductDto product = findByName(name);
+        Product product = productRepository.findByTitle(name);
         if (product != null) {
             product.setTitle(productDto.getTitle());
             product.setDescription(productDto.getDescription());
-            product.setPublisher(productDto.getPublisher());
+            product.setPublisher(publisherRepository.findByName(productDto.getPublisher()));
             product.setISBN(productDto.getISBN());
             product.setReleaseDate(productDto.getReleaseDate());
-//            product.setAuthors(productDto.getAuthors());
-//            product.setGenre(productDto.getGenre());
-            save(product);
+            productRepository.save(product);
+        } else {
+            throw new NotFoundException("Product " + "'" + name + "'" + " does not exist. Try again.");
         }
-        return product;
+        return productMapper.mapper(product);
+    }
+
+    @Override
+    public List<ProductDto> findProductsByGenre(String name) {
+        GenreDto genreDto = genreService.findByName(name);
+        List<Product> product= productRepository.findProductsByGenre(genreMapper.toEntity(genreDto));
+        return productMapper.mapperToDtoList(product);
     }
 
 
-//    private List<Author> toAuthorList(List<String> strings) {
-//        List<Author> authors = new ArrayList<>();
-//        for (String string : strings) {
-//            authors.add(authorRepository.findByName(string));
-//        }
-//        return authors;
-//    }
-//
-//    private List<Genre> toGenreList(List<String> strings) {
-//        List<Genre> genres = new ArrayList<>();
-//        for (String string : strings) {
-//            genres.add(genreRepository.findByName(string));
-//        }
-//        return genres;
-//    }
-
-
-    public void insertIntoAuthorProduct(AuthorProductDto authorProductDto) {
-        if (authorProductDto != null) {
-            Author author = authorRepository.findByName(authorProductDto.getAuthorName());
-            Product product = productRepository.findByTitle(authorProductDto.getProductName());
-            authorRepository.insertInto(author.getId(), product.getId());
-        }
-    }
 
 
 }

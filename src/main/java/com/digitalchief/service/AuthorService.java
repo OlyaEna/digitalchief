@@ -1,6 +1,7 @@
 package com.digitalchief.service;
 
 import com.digitalchief.model.dto.AuthorDto;
+import com.digitalchief.model.dto.ParamProductDto;
 
 import java.util.List;
 
@@ -16,4 +17,7 @@ public interface AuthorService {
     AuthorDto findByName(String name);
 
     AuthorDto update(AuthorDto authorDto, String name);
+
+    void insertIntoAuthorProduct(ParamProductDto authorProductDto);
+
 }

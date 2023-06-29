@@ -1,5 +1,7 @@
 package com.digitalchief.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,11 +23,14 @@ public class Product {
     @Column(name = "release_date")
     private Date releaseDate;
     @ManyToMany(mappedBy = "products")
+    @JsonManagedReference
     private List<Author> authors;
     @ManyToMany(mappedBy = "products")
+    @JsonManagedReference
     private List<Genre> genre;
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="publisher_id")
+    @JsonManagedReference
     private Publisher publisher;
 
 }

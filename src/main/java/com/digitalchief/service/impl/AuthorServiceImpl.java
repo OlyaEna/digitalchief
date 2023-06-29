@@ -4,7 +4,10 @@ import com.digitalchief.exceptions.ConstraintException;
 import com.digitalchief.exceptions.NonUniqueException;
 import com.digitalchief.exceptions.NotFoundException;
 import com.digitalchief.model.dto.AuthorDto;
+import com.digitalchief.model.dto.ParamProductDto;
 import com.digitalchief.model.dto.ProductDto;
+import com.digitalchief.model.entity.Author;
+import com.digitalchief.model.entity.Product;
 import com.digitalchief.model.repository.AuthorRepository;
 import com.digitalchief.service.AuthorService;
 import com.digitalchief.service.ProductService;
@@ -74,5 +77,13 @@ public class AuthorServiceImpl implements AuthorService {
             save(author);
         }
         return author;
+    }
+
+    public void insertIntoAuthorProduct(ParamProductDto paramProductDto) {
+        if (paramProductDto != null) {
+            AuthorDto author = findByName(paramProductDto.getParamName());
+            ProductDto product = productService.findByName(paramProductDto.getProductName());
+            authorRepository.insertInto(author.getId(), product.getId());
+        }
     }
 }
