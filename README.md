@@ -53,6 +53,11 @@ Spring Boot. Требования:
 Используется для валидации.</p>
 > flyway-core, flyway-mysql</p>
 Инструмент для контроля версии базы данных.</p>
+<h2>Запуск приложения:</h2>
+Склонируйте репозиторий: git clone https://github.com/OlyaEna/digitalchief.git </p>
+D MySQL Workbanch создайте Schema под названием "digital_chief". Сменить название можно в application.properties. </p>
+Запустить склонированный код необходимо через IDE,для работы с БД к проекту подкючены миграции. </p>
+
 
 
 
